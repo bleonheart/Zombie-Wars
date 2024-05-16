@@ -6,7 +6,7 @@ GM.Version = "1.3.0"
 DeriveGamemode("sandbox")
 PNRP = {}
 gamemode.Register(PNRP, "postnukerp", "sandbox")
-PNRP_Path = "PostNukeRP/"
+PNRP_Path = "zombierp/"
 --PNRP_MOTDPath = "http://postnukerp.com/rules.php"
 PNRP_MOTDPath = "http://tbuservers.net/?page_id=1499"
 PNRP_WIKIPath = "http://postnukerp.com/wiki"
