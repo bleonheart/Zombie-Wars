@@ -265,6 +265,7 @@ function GM.DeleteProfile( len, pl )
 	
 	if pl ~= ply and (not pl:IsAdmin()) then
 		ErrorNoHalt("[ALERT] Possible Lua Injection: DeleteProfile by "..tostring(pl).."\n")
+		pl:Say("I JUST TRIED TO LUA INJECT LOOOOL")
 		return
 	end
 	
