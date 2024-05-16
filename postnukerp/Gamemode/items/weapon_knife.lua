@@ -12,8 +12,8 @@ ITEM.Info = "Wow! A crummy knife you built."
 ITEM.Type = "weapon"
 ITEM.Remove = true
 ITEM.Energy = 15
-ITEM.Ent = "weapon_pnrp_knife"
-ITEM.Model = "models/weapons/w_knife_t.mdl"
+ITEM.Ent = "tacrp_knife"
+ITEM.Model = "models/weapons/tacint/w_knife.mdl"
 ITEM.Script = ""
 ITEM.Weight = 2
 ITEM.ShopHide = false
@@ -26,7 +26,7 @@ function ITEM.ToolCheck( p )
 end
 
 function ITEM.Use( ply )
-	local WepName = "weapon_pnrp_knife"
+	local WepName = "tacrp_knife"
 	local gotWep = false
 	for k, v in pairs(ply:GetWeapons()) do
 		if v:GetClass() == WepName then gotWep = true end
@@ -41,7 +41,7 @@ function ITEM.Use( ply )
 end
 
 function ITEM.Create( ply, class, pos )
-	local ent = ents.Create("ent_weapon")
+	local ent = ents.Create("tacrp_knife")
 	--ent:SetNetworkedInt("Ammo", self.Energy)
 	ent:SetNetVar("WepClass", ITEM.Ent)
 	ent:SetModel(ITEM.Model)

@@ -4,8 +4,8 @@ SWEP.Contact		= "LostInTheWired@gmail.com"
 SWEP.Purpose		= "Your lifeblood in the wastes.  What\n  would you do without your knife?\nPlus, very few can survive a good backstab."
 SWEP.Instructions	= "WALK-Right click to hold passive."
 
-SWEP.ViewModel		= "models/weapons/v_knife_t.mdl"
-SWEP.WorldModel 	= "models/weapons/w_knife_t.mdl" 
+SWEP.ViewModel		= "models/weapons/tacint/w_knife.mdl"
+SWEP.WorldModel 	= "models/weapons/tacint/w_knife.mdl" 
 
 SWEP.Spawnable 			= true
 SWEP.AdminSpawnable 	= true

@@ -4,8 +4,8 @@ SWEP.Contact		= "LostInTheWired@gmail.com"
 SWEP.Purpose		= "Top notch design. \nThe best the wasteland could offer."
 SWEP.Instructions	= "Right click to use scope.\nWALK-Right click to hold passive."
 
-SWEP.ViewModel		= "models/weapons/v_arma_m82.mdl"
-SWEP.WorldModel		= "models/weapons/w_arma_m82.mdl"
+SWEP.ViewModel		= "models/weapons/tacint/w_as50.mdl"
+SWEP.WorldModel		= "models/weapons/tacint/w_as50.mdl"
 
 SWEP.Spawnable 			= true
 SWEP.AdminSpawnable 	= true
@@ -16,7 +16,7 @@ SWEP.Base 				= "weapon_base"
 SWEP.MuzzleAttachment		= "1" -- Should be "1" for CSS models or "muzzle" for hl2 models
 SWEP.ShellEjectAttachment	= "2" -- Should be "2" for CSS models or "1" for hl2 models
 
-SWEP.Primary.Sound			= Sound( "weapons/M82/fire.wav" )
+SWEP.Primary.Sound			= Sound( "" )
 SWEP.Primary.Recoil 		= 4
 SWEP.Primary.Damage 		= 90
 SWEP.Primary.NumShots 		= 1
@@ -51,7 +51,7 @@ function SWEP:Initialize()
 	util.PrecacheModel( self.ViewModel )
 	util.PrecacheModel( self.WorldModel )
 	util.PrecacheSound(self.Primary.Sound)
-	util.PrecacheSound("Weapon_M82.Reload")
+	util.PrecacheSound("")
 	
 	util.PrecacheSound(sndZoomIn)
 	util.PrecacheSound(sndZoomOut)
@@ -325,7 +325,7 @@ end
 if CLIENT then
 	local function AdjustSensitivity()
 		if LocalPlayer():GetActiveWeapon() and LocalPlayer():GetActiveWeapon():IsValid() then
-			if LocalPlayer():GetActiveWeapon():GetClass() == "weapon_pnrp_M82" then
+			if LocalPlayer():GetActiveWeapon():GetClass() == "tacrp_as50" then
 				local ironSights = LocalPlayer():GetActiveWeapon():GetNWBool("IronSights", false)
 				if ironSights then
 					return 0.01

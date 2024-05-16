@@ -2,20 +2,20 @@ local ITEM = {}
 local WEAPON = {}
 
 
-ITEM.ID = "wep_M82"
+ITEM.ID = "wep_as50"
 
-ITEM.Name = "Barret M82"
+ITEM.Name = "AS50-Sniper"
 ITEM.ClassSpawn = "Engineer"
 ITEM.Scrap = 50
 ITEM.Small_Parts = 100
 ITEM.Chemicals = 30
 ITEM.Chance = 100
-ITEM.Info = "[STILL UNDER DEVELOPMENT] Uses 357 Ammo."
+ITEM.Info = "Uses 357 Ammo."
 ITEM.Type = "weapon"
 ITEM.Remove = true
 ITEM.Energy = 5
-ITEM.Ent = "weapon_pnrp_M82"
-ITEM.Model = "models/weapons/w_arma_m82.mdl"
+ITEM.Ent = "tacrp_as50"
+ITEM.Model = "models/weapons/tacint/w_as50.mdl"
 ITEM.Script = ""
 ITEM.Weight = 8
 ITEM.ShopHide = true
@@ -29,7 +29,7 @@ function ITEM.ToolCheck( p )
 end
 
 function ITEM.Use( ply )
-	local WepName = "weapon_pnrp_M82"
+	local WepName = "tacrp_as50"
 	local gotWep = false
 	for k, v in pairs(ply:GetWeapons()) do
 		if v:GetClass() == WepName then gotWep = true end
@@ -45,7 +45,7 @@ function ITEM.Use( ply )
 end
 
 function ITEM.Create( ply, class, pos )
-	local ent = ents.Create("ent_weapon")
+	local ent = ents.Create("tacrp_as50")
 	--ent:SetNetworkedInt("Ammo", self.Energy)
 	ent:SetNWString("WepClass", ITEM.Ent)
 	ent:SetModel(ITEM.Model)

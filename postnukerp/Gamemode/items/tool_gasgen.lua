@@ -17,11 +17,11 @@ ITEM.Ent = "tool_gasgen"
 ITEM.Model = "models/props_mining/diesel_generator.mdl"
 ITEM.Script = ""
 ITEM.Weight = 15
-ITEM.SaveState = true
+ITEM.SaveState = false
 
 function ITEM.BuildState( ent )
 	local toolHP = 200
-	local FuelLevel = 0
+	local FuelLevel = 5
 	if( IsValid(ent) ) then 
 		toolHP = ent:Health() 
 		FuelLevel = ent.FuelLevel
