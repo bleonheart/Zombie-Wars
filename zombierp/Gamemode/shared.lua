@@ -5,13 +5,6 @@ GM.Website = "http://postnukerp.com" --Set the author website
 GM.Version = "1.3.0"
 DeriveGamemode("sandbox")
 PNRP = {}
-AvailableModels = {
-	["models/Barney.mdl"] = {
-		steamID = {},
-		usergroup = {"superadmin"}
-	}
-}
-
 gamemode.Register(PNRP, "postnukerp", "sandbox")
 PNRP_Path = "PostNukeRP/"
 --PNRP_MOTDPath = "http://postnukerp.com/rules.php"

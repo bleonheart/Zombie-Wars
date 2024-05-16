@@ -2,6 +2,13 @@ local loadin_Frame
 local sFrame = false
 local initialLoad = false
 local basicload_Frame
+local AvailableModels = {
+	["models/Barney.mdl"] = {
+		steamID = {},
+		usergroup = {"superadmin"}
+	}
+}
+
 function basicLoadWindow(ply)
 	local plyHasLoaded = ply:GetNetVar("HasLoaded", false)
 	if plyHasLoaded then return end

@@ -1,3 +1,10 @@
+local AvailableModels = {
+	["models/Barney.mdl"] = {
+		steamID = {},
+		usergroup = {"superadmin"}
+	}
+}
+
 function viewPlayerInfoWindow()
 	player_frame = PNRP.PNRP_Frame()
 	if not player_frame then return end
