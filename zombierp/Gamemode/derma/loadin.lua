@@ -6,7 +6,15 @@ local AvailableModels = {
 	["models/Barney.mdl"] = {
 		steamID = {},
 		usergroup = {"superadmin"}
-	}
+	},
+	["models/alyx.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/monk.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
 }
 
 function basicLoadWindow(ply)
@@ -145,8 +153,8 @@ function GM.profilePicker(len)
 		pnlPanel.Name:SetColor(Color(0, 0, 0, 255))
 		pnlPanel.Name:SizeToContents()
 		pnlPanel.Name:SetContentAlignment(5)
-		--					local communityName = ply:GetNWString("community", "N/A")
-		--					local communityTitle = ply:GetNWString("ctitle", "N/A")
+		-- local communityName = ply:GetNWString("community", "N/A")
+		-- local communityTitle = ply:GetNWString("ctitle", "N/A")
 		pnlPanel.Community = vgui.Create("DLabel", pnlPanel)
 		pnlPanel.Community:SetPos(5, 95)
 		pnlPanel.Community:SetText("Community Name here\nCommunity Title")
@@ -222,7 +230,7 @@ function GM.profilePicker(len)
 	end
 
 	local selectedMdl = "models/player/kleiner.mdl"
-	--New Profile Section
+	-- New Profile Section
 	local newProfileLabel = vgui.Create("DLabel", profilePicker_Frame)
 	newProfileLabel:SetPos(PList_DPanel:GetWide() + 15, 25)
 	newProfileLabel:SetColor(Color(255, 255, 255, 255))

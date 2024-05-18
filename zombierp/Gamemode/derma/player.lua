@@ -2,7 +2,15 @@ local AvailableModels = {
 	["models/Barney.mdl"] = {
 		steamID = {},
 		usergroup = {"superadmin"}
-	}
+	},
+	["models/alyx.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/monk.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
 }
 
 function viewPlayerInfoWindow()
