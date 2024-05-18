@@ -1,14 +1,14 @@
-GM.Name = "PostNukeRP" --Set the gamemode name
-GM.Author = "EldarStorm LostInTheWird MainError" --Set the author name
+GM.Name = "ZombieRP" --Set the gamemode name
+GM.Author = "EldarStorm & Too High & @liliaplayer" --Set the author name
 GM.Email = "N/A" --Set the author email
-GM.Website = "http://postnukerp.com" --Set the author website
-GM.Version = "1.3.0"
+GM.Website = "https://www.zombiewarsrp.com/index/rules.html" --Set the author website
+GM.Version = "2.0"
 DeriveGamemode("sandbox")
 PNRP = {}
-gamemode.Register(PNRP, "postnukerp", "sandbox")
+gamemode.Register(PNRP, "zombierp", "sandbox")
 PNRP_Path = "zombierp/"
 --PNRP_MOTDPath = "http://postnukerp.com/rules.php"
-PNRP_MOTDPath = "http://tbuservers.net/?page_id=1499"
+PNRP_MOTDPath = "https://www.zombiewarsrp.com/index/rules.html"
 PNRP_WIKIPath = "http://postnukerp.com/wiki"
 --Team Variables
 TEAM_WASTELANDER = 6
@@ -248,7 +248,7 @@ end
 --	got the stupid shit to work.	  --
 ----------------------------------------
 local RP_Default_Weapons = {}
-RP_Default_Weapons = {"weapon_pnrp_ak-comp", "weapon_pnrp_badlands", "weapon_pnrp_charge", "weapon_pnrp_knife", "weapon_pnrp_p228", "weapon_pnrp_precrifle", "weapon_pnrp_pumpshotgun", "weapon_pnrp_revolver", "weapon_pnrp_saw", "weapon_pnrp_scrapmp", "weapon_pnrp_smg", "weapon_pnrp_57luck", "weapon_pnrp_ump", "weapon_pnrp_pulserifle", "weapon_pnrp_flaregun"}
+RP_Default_Weapons = {"weapon_pnrp_ak-comp", "weapon_pnrp_badlands", "weapon_pnrp_charge", "tacrp_knife", "weapon_pnrp_p228", "weapon_pnrp_precrifle", "weapon_pnrp_pumpshotgun", "weapon_pnrp_revolver", "weapon_pnrp_saw", "weapon_pnrp_scrapmp", "weapon_pnrp_smg", "weapon_pnrp_57luck", "weapon_pnrp_ump", "weapon_pnrp_pulserifle", "weapon_pnrp_flaregun"}
 local function HoldTypeFix()
 	for k, v in pairs(player.GetAll()) do
 		local myWep = v:GetActiveWeapon()

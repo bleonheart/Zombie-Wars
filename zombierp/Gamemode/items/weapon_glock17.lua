@@ -2,34 +2,33 @@ local ITEM = {}
 local WEAPON = {}
 
 
-ITEM.ID = "wep_ump"
+ITEM.ID = "wep_57luck"
 
-ITEM.Name = "UMP-POST"
+ITEM.Name = "Glock 17"
 ITEM.ClassSpawn = "Engineer"
-ITEM.Scrap = 20
-ITEM.Small_Parts = 75
-ITEM.Chemicals = 30
+ITEM.Scrap = 2
+ITEM.Small_Parts = 25
+ITEM.Chemicals = 10
 ITEM.Chance = 100
-ITEM.Info = "[STILL UNDER DEVELOPMENT] Uses SMG Ammo"
+ITEM.Info = "Uses Pistol Ammo."
 ITEM.Type = "weapon"
 ITEM.Remove = true
-ITEM.Energy = 25
-ITEM.Ent = "weapon_pnrp_ump"
-ITEM.Model = "models/weapons/w_smg_ump45.mdl"
+ITEM.Energy = 20
+ITEM.Ent = "tacrp_ex_glock"
+ITEM.Model = "models/weapons/tacint_extras/w_glock_new.mdl"
 ITEM.Script = ""
-ITEM.Weight = 7
-ITEM.ShopHide = true
-ITEM.AllHide = true
+ITEM.Weight = 2
 
 WEAPON.ID = ITEM.ID
-WEAPON.AmmoType = "smg1"
+WEAPON.AmmoType = "pistol"
+
 
 function ITEM.ToolCheck( p )
 	return true
 end
 
 function ITEM.Use( ply )
-	local WepName = "weapon_pnrp_ump"
+	local WepName = "tacrp_ex_glock"
 	local gotWep = false
 	for k, v in pairs(ply:GetWeapons()) do
 		if v:GetClass() == WepName then gotWep = true end
@@ -45,7 +44,7 @@ function ITEM.Use( ply )
 end
 
 function ITEM.Create( ply, class, pos )
-	local ent = ents.Create("ent_weapon")
+	local ent = ents.Create("tacrp_ex_glock")
 	--ent:SetNetworkedInt("Ammo", self.Energy)
 	ent:SetNetVar("WepClass", ITEM.Ent)
 	ent:SetModel(ITEM.Model)
@@ -55,6 +54,7 @@ function ITEM.Create( ply, class, pos )
 	
 	return ent
 end
+
 
 PNRP.AddItem(ITEM)
 PNRP.AddWeapon(WEAPON)
