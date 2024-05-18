@@ -247,7 +247,7 @@ function GM.profilePicker(len)
 	mdlListView:AddColumn("Model")
 	mdlListView.OnClickLine = function(parent, line, isselected)
 		mdlIcon:SetModel(line:GetValue(1))
-		selectedMdl = line:GetValue(2)
+		selectedMdl = tostring(line:GetValue(1))
 		mdlListView:ClearSelection()
 		mdlListView:SelectItem(line)
 	end
