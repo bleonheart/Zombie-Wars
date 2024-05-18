@@ -2,33 +2,35 @@ local ITEM = {}
 local WEAPON = {}
 
 
-ITEM.ID = "wep_p228"
+ITEM.ID = "wep_57luck"
 
-ITEM.Name = "Machine Pistol XD45"
+ITEM.Name = "57 Lucky"
 ITEM.ClassSpawn = "Engineer"
-ITEM.Scrap = 75
+ITEM.Scrap = 2
 ITEM.Small_Parts = 25
-ITEM.Chemicals = 15
+ITEM.Chemicals = 10
 ITEM.Chance = 100
 ITEM.Info = "Uses Pistol Ammo."
 ITEM.Type = "weapon"
 ITEM.Remove = true
-ITEM.Energy = 13
-ITEM.Ent = "tacrp_xd45"
-ITEM.Model = "models/weapons/tacint/w_xd45.mdl"
+ITEM.Energy = 20
+ITEM.Ent = "weapon_pnrp_57luck"
+ITEM.Model = "models/weapons/w_pist_fiveseven.mdl"
 ITEM.Script = ""
 ITEM.Weight = 2
 
 WEAPON.ID = ITEM.ID
 WEAPON.AmmoType = "pistol"
-
+WEAPON.MagLoadTime = 6
+WEAPON.MagType = "normal"
+WEAPON.MagSize = "small"
 
 function ITEM.ToolCheck( p )
 	return true
 end
 
 function ITEM.Use( ply )
-	local WepName = "tacrp_xd45"
+	local WepName = "weapon_pnrp_57luck"
 	local gotWep = false
 	for k, v in pairs(ply:GetWeapons()) do
 		if v:GetClass() == WepName then gotWep = true end
@@ -38,13 +40,13 @@ function ITEM.Use( ply )
 		ply:GetWeapon(WepName):SetClip1(0)
 		return true
 	else
-		ply:ChatPrint("Weapon allready equipped.")
+		ply:ChatPrint("Weapon already equipped.")
 		return false
 	end
 end
 
 function ITEM.Create( ply, class, pos )
-	local ent = ents.Create("tacrp_xd45")
+	local ent = ents.Create("ent_weapon")
 	--ent:SetNetworkedInt("Ammo", self.Energy)
 	ent:SetNetVar("WepClass", ITEM.Ent)
 	ent:SetModel(ITEM.Model)
@@ -54,6 +56,7 @@ function ITEM.Create( ply, class, pos )
 	
 	return ent
 end
+
 
 PNRP.AddItem(ITEM)
 PNRP.AddWeapon(WEAPON)

@@ -2,13 +2,13 @@ local ITEM = {}
 local WEAPON = {}
 
 
-ITEM.ID = "wep_M82"
+ITEM.ID = "wep_as50"
 
 ITEM.Name = "AS50-Sniper"
 ITEM.ClassSpawn = "Engineer"
 ITEM.Scrap = 50
-ITEM.Small_Parts = 50
-ITEM.Chemicals = 100
+ITEM.Small_Parts = 100
+ITEM.Chemicals = 30
 ITEM.Chance = 100
 ITEM.Info = "Uses 357 Ammo."
 ITEM.Type = "weapon"
