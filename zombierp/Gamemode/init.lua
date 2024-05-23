@@ -760,11 +760,27 @@ function team_set_cultivator(ply)
 	ply:Spawn() -- Make the player respawn
 end
 
+function team_set_zombie(ply)
+	classChangeCheck(ply)
+	ply:SetTeam(TEAM_ZOMBIE)
+	classChangeCost(ply, "Scrap")
+	classChangeCost(ply, "Small_Parts")
+	classChangeCost(ply, "Chemicals")
+	ply:Spawn()
+	ply:SetModel("models/Zombie/Classic.mdl")
+	ply:SetMaxHealth(200)
+	ply:SetHealth(200)
+	ply:StripWeapons()
+	ply:Give("weapon_crowbar")
+end
+
+hook.Add("GetFallDamage", "NoFallZombies", function(ply, speed) if ply:Team() == TEAM_ZOMBIE then return 0 end end)
 concommand.Add("team_set_wastelander", team_set_wastelander)
 concommand.Add("team_set_scavenger", team_set_scavenger)
 concommand.Add("team_set_science", team_set_science)
 concommand.Add("team_set_engineer", team_set_engineer)
 concommand.Add("team_set_cultivator", team_set_cultivator)
+concommand.Add("team_set_zombie", team_set_zombie)
 --May expand this function for other checks
 function classChangeCheck(ply)
 	ply.LoadArmor = ply:Armor()

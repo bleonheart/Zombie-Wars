@@ -8,19 +8,21 @@ PNRP = {}
 gamemode.Register(PNRP, "postnukerp", "sandbox")
 PNRP_Path = "zombierp/"
 --PNRP_MOTDPath = "http://postnukerp.com/rules.php"
-PNRP_MOTDPath = "http://tbuservers.net/?page_id=1499"
+PNRP_MOTDPath = "https://www.zombiewarsrp.com/index/rules.html"
 PNRP_WIKIPath = "http://postnukerp.com/wiki"
 --Team Variables
 TEAM_WASTELANDER = 6
 TEAM_SCAVENGER = 7
 TEAM_SCIENCE = 8
 TEAM_ENGINEER = 9
+TEAM_ZOMBIE = 10
 TEAM_CULTIVATOR = 5
 team.SetUp(TEAM_WASTELANDER, "Wastelander", Color(125, 125, 125, 255)) --Gray
 team.SetUp(TEAM_SCAVENGER, "Scavenger", Color(102, 51, 0, 225)) --Brown
 team.SetUp(TEAM_SCIENCE, "Science", Color(0, 0, 153, 225)) --Blue
 team.SetUp(TEAM_ENGINEER, "Engineer", Color(255, 204, 0, 225)) --Orange
 team.SetUp(TEAM_CULTIVATOR, "Cultivator", Color(51, 153, 0, 225)) --Green
+team.SetUp(TEAM_ZOMBIE, "Zombie", Color(51, 153, 0, 225)) --Green
 PNRP.Resources = {}
 table.insert(PNRP.Resources, "Scrap")
 table.insert(PNRP.Resources, "Small_Parts")
@@ -248,7 +250,7 @@ end
 --	got the stupid shit to work.	  --
 ----------------------------------------
 local RP_Default_Weapons = {}
-RP_Default_Weapons = {"weapon_pnrp_ak-comp", "weapon_pnrp_badlands", "weapon_pnrp_charge", "weapon_pnrp_knife", "weapon_pnrp_p228", "weapon_pnrp_precrifle", "weapon_pnrp_pumpshotgun", "weapon_pnrp_revolver", "weapon_pnrp_saw", "weapon_pnrp_scrapmp", "weapon_pnrp_smg", "weapon_pnrp_57luck", "weapon_pnrp_ump", "weapon_pnrp_pulserifle", "weapon_pnrp_flaregun"}
+RP_Default_Weapons = {"weapon_pnrp_ak-comp", "weapon_pnrp_badlands", "weapon_pnrp_charge", "tacrp_knife", "weapon_pnrp_p228", "weapon_pnrp_precrifle", "weapon_pnrp_pumpshotgun", "weapon_pnrp_revolver", "weapon_pnrp_saw", "weapon_pnrp_scrapmp", "weapon_pnrp_smg", "weapon_pnrp_57luck", "weapon_pnrp_ump", "weapon_pnrp_pulserifle", "weapon_pnrp_flaregun"}
 local function HoldTypeFix()
 	for k, v in pairs(player.GetAll()) do
 		local myWep = v:GetActiveWeapon()

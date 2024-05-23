@@ -1,13 +1,137 @@
 local AvailableModels = {
-	["models/Barney.mdl"] = {
+	["models/stalkertnb/cs2_goggles.mdl"] = {
 		steamID = {},
-		usergroup = {"superadmin"}
+		usergroup = {"superadmin", "vip"}
 	},
-	["models/alyx.mdl"] = {
+	["models/stalkertnb/exo_berill.mdl"] = {
 		steamID = {},
 		usergroup = {}
 	},
-	["models/monk.mdl"] = {
+	["models/stalkertnb/beri_mili.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/Beri_rogue.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/beri_rogue_cs2.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/beri_rogue_helmet.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit1.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit2.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit3.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit4.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit_female6.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit_hour.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit_overwatch.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit_reager.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_free.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_lone.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_skat_merc.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_mono.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_skat_duty.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_skat_duty_heavy.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_freedompracs.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/sunrise_lone.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_duty2.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_duty4.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_mono2.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_mono4.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_free3.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/rad_free.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/rad_monoboss.mdl"] = {
+		steamID = {},
+		usergroup = {"vip", "superadmin"}
+	},
+	["models/stalkertnb/seva_duty.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/seva_free.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/seva_lone.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/seva_monolith_heavy.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/sunrise_merc.mdl"] = {
 		steamID = {},
 		usergroup = {}
 	},
@@ -332,151 +456,153 @@ function playerProfileWindow()
 					skillYLoc = skillYLoc + 40
 				end
 			end
-		else
 		end
 	end
 
 	profile_TabSheet:AddSheet("Skills", Skills_DPanel, "gui/icons/wrench.png", false, false, "Skills")
-	local pModelPanel = vgui.Create("DPanel", profile_TabSheet)
-	pModelPanel:SetPos(5, 5)
-	pModelPanel:SetSize(profile_TabSheet:GetWide(), profile_TabSheet:GetTall())
-	pModelPanel.Paint = function()
-		-- Paint function
-		surface.SetDrawColor(50, 50, 50, 0)
-	end
-
-	local BodyGroupScrollPanel = vgui.Create("DScrollPanel", pModelPanel)
-	BodyGroupScrollPanel:SetSize(155, pModelPanel:GetTall() - 50)
-	BodyGroupScrollPanel:SetPos(0, 5)
-	BodyGroupScrollPanel:SetPadding(5)
-	function skinBodyGroup(mdlEnt)
-		BodyGroupScrollPanel:Clear()
-		local layout = vgui.Create("DListLayout", BodyGroupScrollPanel)
-		layout:SetSize(BodyGroupScrollPanel:GetWide() - 15, BodyGroupScrollPanel:GetTall() - 15)
-		layout:SetPos(0, 0)
-		local Skins = mdlEnt:SkinCount()
-		if Skins > 1 then
-			local skinList = vgui.Create("DListView", layout)
-			skinList:SetMultiSelect(false)
-			skinList:AddColumn("Skins")
-			for i = 1, Skins do
-				skinList:AddLine("Skin (" .. tostring(i - 1) .. ")", i - 1)
-			end
-
-			skinList:SetSize(layout:GetWide(), 70)
-			local oldSkin = mdlEnt:GetSkin()
-			skinList:SelectItem(skinList:GetLine(oldSkin + 1))
-			layout:Add(skinList)
-			skinList.OnRowSelected = function(panel, index)
-				myVar = panel:GetLine(index):GetValue(2)
-				mdl.Entity:SetSkin(myVar)
-			end
+	if LocalPlayer():Team() ~= TEAM_ZOMBIE then
+		local pModelPanel = vgui.Create("DPanel", profile_TabSheet)
+		pModelPanel:SetPos(5, 5)
+		pModelPanel:SetSize(profile_TabSheet:GetWide(), profile_TabSheet:GetTall())
+		pModelPanel.Paint = function()
+			-- Paint function
+			surface.SetDrawColor(50, 50, 50, 0)
 		end
 
-		local bodyGroups = mdlEnt:GetBodyGroups()
-		local modelName = bodyGroups[1]["name"]
-		for _, v in pairs(bodyGroups) do
-			if v["name"] ~= modelName then
-				local catList = vgui.Create("DListView", layout)
-				catList:SetMultiSelect(false)
-				catList:AddColumn(v["name"])
-				local catHeight = 0
-				for mID, submodel in pairs(v["submodels"]) do
-					submodel = string.gsub(submodel, ".smd", "")
-					submodel = string.gsub(submodel, modelName .. "_", "")
-					submodel = string.gsub(submodel, "_", " ")
-					if submodel == "" then submodel = "None" end
-					catList:AddLine(submodel, mID)
-					catHeight = catHeight + 25
+		local BodyGroupScrollPanel = vgui.Create("DScrollPanel", pModelPanel)
+		BodyGroupScrollPanel:SetSize(155, pModelPanel:GetTall() - 50)
+		BodyGroupScrollPanel:SetPos(0, 5)
+		BodyGroupScrollPanel:SetPadding(5)
+		function skinBodyGroup(mdlEnt)
+			BodyGroupScrollPanel:Clear()
+			local layout = vgui.Create("DListLayout", BodyGroupScrollPanel)
+			layout:SetSize(BodyGroupScrollPanel:GetWide() - 15, BodyGroupScrollPanel:GetTall() - 15)
+			layout:SetPos(0, 0)
+			local Skins = mdlEnt:SkinCount()
+			if Skins > 1 then
+				local skinList = vgui.Create("DListView", layout)
+				skinList:SetMultiSelect(false)
+				skinList:AddColumn("Skins")
+				for i = 1, Skins do
+					skinList:AddLine("Skin (" .. tostring(i - 1) .. ")", i - 1)
 				end
 
-				if catHeight > 70 then catHeight = 70 end
-				if catHeight < 35 then catHeight = 35 end
-				catList:SetSize(layout:GetWide(), catHeight)
-				catList.OnRowSelected = function(panel, index)
+				skinList:SetSize(layout:GetWide(), 70)
+				local oldSkin = mdlEnt:GetSkin()
+				skinList:SelectItem(skinList:GetLine(oldSkin + 1))
+				layout:Add(skinList)
+				skinList.OnRowSelected = function(panel, index)
 					myVar = panel:GetLine(index):GetValue(2)
-					mdl.Entity:SetBodygroup(v["id"], myVar)
+					mdl.Entity:SetSkin(myVar)
 				end
+			end
 
-				layout:Add(catList)
-				local oldBG = mdl.Entity:GetBodygroup(v["id"])
-				catList:SelectItem(catList:GetLine(oldBG + 1))
+			local bodyGroups = mdlEnt:GetBodyGroups()
+			local modelName = bodyGroups[1]["name"]
+			for _, v in pairs(bodyGroups) do
+				if v["name"] ~= modelName then
+					local catList = vgui.Create("DListView", layout)
+					catList:SetMultiSelect(false)
+					catList:AddColumn(v["name"])
+					local catHeight = 0
+					for mID, submodel in pairs(v["submodels"]) do
+						submodel = string.gsub(submodel, ".smd", "")
+						submodel = string.gsub(submodel, modelName .. "_", "")
+						submodel = string.gsub(submodel, "_", " ")
+						if submodel == "" then submodel = "None" end
+						catList:AddLine(submodel, mID)
+						catHeight = catHeight + 25
+					end
+
+					if catHeight > 70 then catHeight = 70 end
+					if catHeight < 35 then catHeight = 35 end
+					catList:SetSize(layout:GetWide(), catHeight)
+					catList.OnRowSelected = function(panel, index)
+						myVar = panel:GetLine(index):GetValue(2)
+						mdl.Entity:SetBodygroup(v["id"], myVar)
+					end
+
+					layout:Add(catList)
+					local oldBG = mdl.Entity:GetBodygroup(v["id"])
+					catList:SelectItem(catList:GetLine(oldBG + 1))
+				end
 			end
 		end
+
+		skinBodyGroup(mdl.Entity)
+		local ModelScrollPanel = vgui.Create("DScrollPanel", pModelPanel)
+		ModelScrollPanel:SetSize(pModelPanel:GetWide() - 175, pModelPanel:GetTall() - 50)
+		ModelScrollPanel:SetPos(160, 5)
+		local List = vgui.Create("DIconLayout", ModelScrollPanel)
+		List:SetSize(ModelScrollPanel:GetWide(), ModelScrollPanel:GetTall())
+		List:SetPos(0, 0)
+		List:SetSpaceY(5)
+		List:SetSpaceX(5)
+		for name, modelData in pairs(AvailableModels) do
+			local ListItem = List:Add("DPanel")
+			ListItem:SetSize(64, 64)
+			ListItem.Paint = function()
+				local allowed = false
+				if string.lower(ply:GetModel()) == string.lower(name) then
+					draw.RoundedBox(6, 0, 0, ListItem:GetWide(), ListItem:GetTall(), Color(0, 180, 0, 25))
+				else
+					surface.SetDrawColor(50, 50, 50, 0)
+				end
+
+				if table.IsEmpty(modelData.steamID) and table.IsEmpty(modelData.usergroup) then
+					allowed = true
+				elseif table.HasValue(modelData.usergroup, ply:GetUserGroup()) then
+					allowed = true
+				end
+
+				for _, id in ipairs(modelData.steamID) do
+					if ply:SteamID() == id then
+						allowed = true
+						break
+					end
+				end
+
+				if not allowed then draw.RoundedBox(6, 0, 0, ListItem:GetWide(), ListItem:GetTall(), Color(180, 0, 0, 25)) end
+			end
+
+			local modelIcon = vgui.Create("SpawnIcon", ListItem)
+			modelIcon:SetPos(0, 0)
+			modelIcon:SetSize(ListItem:GetWide(), ListItem:GetTall())
+			modelIcon:SetModel(name)
+			modelIcon:SetTooltip(name)
+			modelIcon.DoClick = function()
+				local allowed = false
+				if table.IsEmpty(modelData.steamID) and table.IsEmpty(modelData.usergroup) then
+					allowed = true
+				elseif table.HasValue(modelData.usergroup, ply:GetUserGroup()) then
+					allowed = true
+				end
+
+				for _, id in ipairs(modelData.steamID) do
+					if ply:SteamID() == id then
+						allowed = true
+						break
+					end
+				end
+
+				if allowed then
+					mdl:SetModel(name)
+					newModel = name
+					function mdl.Entity:GetPlayerColor()
+						return Vector(GetConVarString("cl_playercolor"))
+					end
+
+					mdl.Entity:SetPos(Vector(-100, 0, -61))
+					skinBodyGroup(mdl.Entity)
+				else
+					chat.AddText(Color(255, 0, 0), "You don't have access to this model.")
+				end
+			end
+		end
+
+		profile_TabSheet:AddSheet("Player Model", pModelPanel, "gui/icons/user_edit.png", false, false, "Player Model")
 	end
 
-	skinBodyGroup(mdl.Entity)
-	local ModelScrollPanel = vgui.Create("DScrollPanel", pModelPanel)
-	ModelScrollPanel:SetSize(pModelPanel:GetWide() - 175, pModelPanel:GetTall() - 50)
-	ModelScrollPanel:SetPos(160, 5)
-	local List = vgui.Create("DIconLayout", ModelScrollPanel)
-	List:SetSize(ModelScrollPanel:GetWide(), ModelScrollPanel:GetTall())
-	List:SetPos(0, 0)
-	List:SetSpaceY(5)
-	List:SetSpaceX(5)
-	for name, modelData in pairs(AvailableModels) do
-		local ListItem = List:Add("DPanel")
-		ListItem:SetSize(64, 64)
-		ListItem.Paint = function()
-			local allowed = false
-			if string.lower(ply:GetModel()) == string.lower(name) then
-				draw.RoundedBox(6, 0, 0, ListItem:GetWide(), ListItem:GetTall(), Color(0, 180, 0, 25))
-			else
-				surface.SetDrawColor(50, 50, 50, 0)
-			end
-
-			if table.IsEmpty(modelData.steamID) and table.IsEmpty(modelData.usergroup) then
-				allowed = true
-			elseif table.HasValue(modelData.usergroup, ply:GetUserGroup()) then
-				allowed = true
-			end
-
-			for _, id in ipairs(modelData.steamID) do
-				if ply:SteamID() == id then
-					allowed = true
-					break
-				end
-			end
-
-			if not allowed then draw.RoundedBox(6, 0, 0, ListItem:GetWide(), ListItem:GetTall(), Color(180, 0, 0, 25)) end
-		end
-
-		local modelIcon = vgui.Create("SpawnIcon", ListItem)
-		modelIcon:SetPos(0, 0)
-		modelIcon:SetSize(ListItem:GetWide(), ListItem:GetTall())
-		modelIcon:SetModel(name)
-		modelIcon:SetTooltip(name)
-		modelIcon.DoClick = function()
-			local allowed = false
-			if table.IsEmpty(modelData.steamID) and table.IsEmpty(modelData.usergroup) then
-				allowed = true
-			elseif table.HasValue(modelData.usergroup, ply:GetUserGroup()) then
-				allowed = true
-			end
-
-			for _, id in ipairs(modelData.steamID) do
-				if ply:SteamID() == id then
-					allowed = true
-					break
-				end
-			end
-
-			if allowed then
-				mdl:SetModel(name)
-				newModel = name
-				function mdl.Entity:GetPlayerColor()
-					return Vector(GetConVarString("cl_playercolor"))
-				end
-
-				mdl.Entity:SetPos(Vector(-100, 0, -61))
-				skinBodyGroup(mdl.Entity)
-			else
-				chat.AddText(Color(255, 0, 0), "You don't have access to this model.")
-			end
-		end
-	end
-
-	profile_TabSheet:AddSheet("Player Model", pModelPanel, "gui/icons/user_edit.png", false, false, "Player Model")
 	local pColorPanel = vgui.Create("DPanel", profile_TabSheet)
 	pColorPanel:SetPos(5, 10)
 	pColorPanel:SetSize(profile_TabSheet:GetWide(), profile_TabSheet:GetTall())

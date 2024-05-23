@@ -3,19 +3,144 @@ local sFrame = false
 local initialLoad = false
 local basicload_Frame
 local AvailableModels = {
-	["models/Barney.mdl"] = {
+	["models/stalkertnb/cs2_goggles.mdl"] = {
 		steamID = {},
-		usergroup = {"superadmin"}
+		usergroup = {"superadmin", "vip"}
 	},
-	["models/alyx.mdl"] = {
+	["models/stalkertnb/exo_berill.mdl"] = {
 		steamID = {},
 		usergroup = {}
 	},
-	["models/monk.mdl"] = {
+	["models/stalkertnb/beri_mili.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/Beri_rogue.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/beri_rogue_cs2.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/beri_rogue_helmet.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit1.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit2.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit3.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit4.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit_female6.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit_hour.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit_overwatch.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/bandit_reager.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_free.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_lone.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_skat_merc.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_mono.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_skat_duty.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_skat_duty_heavy.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/exo_freedompracs.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/sunrise_lone.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_duty2.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_duty4.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_mono2.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_mono4.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/psz9d_free3.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/rad_free.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/rad_monoboss.mdl"] = {
+		steamID = {},
+		usergroup = {"vip", "superadmin"}
+	},
+	["models/stalkertnb/seva_duty.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/seva_free.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/seva_lone.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/seva_monolith_heavy.mdl"] = {
+		steamID = {},
+		usergroup = {}
+	},
+	["models/stalkertnb/sunrise_merc.mdl"] = {
 		steamID = {},
 		usergroup = {}
 	},
 }
+
 
 function basicLoadWindow(ply)
 	local plyHasLoaded = ply:GetNetVar("HasLoaded", false)

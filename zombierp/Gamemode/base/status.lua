@@ -1,12 +1,9 @@
-
 ----------------------------------------------------
 ---		This file includes health regen and
 ---		endurance drain and regen outside of items.
 ---		Also controls the sleep systems (of course).
 ----------------------------------------------------
 local PlayerMeta = FindMetaTable("Player")
-
-
 function StatCheck()
 	for k, v in pairs(player.GetAll()) do
 		if IsValid(v) then
@@ -17,58 +14,43 @@ function StatCheck()
 				else
 					UpdateTime = 60
 				end
-				
+
 				--Health checks
 				if v:Alive() and CurTime() - v:GetTable().LastHealthUpdate > UpdateTime and not v:IsOutside() then
 					local health = v:Health()
-					
-					if not ( health == v:GetMaxHealth() ) then
-						
-						v:SetHealth( health + 1 )
-						if ( v:GetMaxHealth() < health + 1  ) then
-							v:SetHealth( v:GetMaxHealth() )
-						end
+					if not (health == v:GetMaxHealth()) then
+						v:SetHealth(health + 1)
+						if v:GetMaxHealth() < health + 1 then v:SetHealth(v:GetMaxHealth()) end
 					end
+
 					v:GetTable().LastHealthUpdate = CurTime()
 				end
-				
+
 				local runModifier = 0
-				
 				if v:KeyDown(IN_FORWARD) or v:KeyDown(IN_LEFT) or v:KeyDown(IN_RIGHT) or v:KeyDown(IN_BACK) then
 					runModifier = runModifier + 1
-					if v:KeyDown(IN_SPEED) then
-						runModifier = runModifier + 3
-					end
+					if v:KeyDown(IN_SPEED) then runModifier = runModifier + 3 end
 				end
-				
+
 				--Gas Updates
-				if !v:GetTable().GasUpdate then
-					v:GetTable().GasUpdate = CurTime()
-				end
+				if not v:GetTable().GasUpdate then v:GetTable().GasUpdate = CurTime() end
 				if CurTime() - v:GetTable().GasUpdate > 2 then
 					v:GetTable().GasUpdate = CurTime()
-
 					if v:InVehicle() then
 						local car = v:GetVehicle()
-						
 						if car:Health() <= 50 then runModifier = runModifier + 1 end
 						if car:Health() <= 25 then runModifier = runModifier + 3 end
 						if car:Health() <= 10 then runModifier = runModifier + 3 end
 						if car:Health() <= 2 then runModifier = runModifier + 3 end
-						
-						if !car.gas then car.gas = 0 end
-						if !car.tank then car.tank = 8 end
-						
+						if not car.gas then car.gas = 0 end
+						if not car.tank then car.tank = 8 end
 						if car.gas <= 0 or car:Health() <= 0 or car.Repairing then
 							if car.gas < 0 then car.gas = 0 end
 							if car:Health() < 0 then car:SetHealth(0) end
-							
 							car:Fire("turnoff", 1, 0)
 							--check Wire Adv Pod Controller 
-							for _,pod in pairs( ents.FindByClass( "gmod_wire_pod" ) ) do
-								if (pod:HasPly() and pod:GetPly() == v) then
-									pod.Disable = true
-								end
+							for _, pod in pairs(ents.FindByClass("gmod_wire_pod")) do
+								if pod:HasPly() and pod:GetPly() == v then pod.Disable = true end
 							end
 						end
 
@@ -76,140 +58,112 @@ function StatCheck()
 							car.gas = car.gas - (runModifier / 60)
 							car:Fire("turnon", 1, 0)
 							--check Wire Adv Pod Controller 
-							for _,pod in pairs( ents.FindByClass( "gmod_wire_pod" ) ) do
-								if (pod:HasPly() and pod:GetPly() == v) then
-									pod.Disable = false
-								end
+							for _, pod in pairs(ents.FindByClass("gmod_wire_pod")) do
+								if pod:HasPly() and pod:GetPly() == v then pod.Disable = false end
 							end
 						end
-						
-						SendGas( v, car, car.gas, car.tank )
-						
-					end
 
+						SendGas(v, car, car.gas, car.tank)
+					end
 				end
-				
-				local EndUpdateTime 
+
+				local EndUpdateTime
 				if v:Team() == TEAM_WASTELANDER then
 					EndUpdateTime = UpdateTime / (1 - (0.5 * (v:GetSkill("Endurance") / 6)))
-					if v:GetTable().IsAsleep then
-						EndUpdateTime = UpdateTime / 5 
-					end
+					if v:GetTable().IsAsleep then EndUpdateTime = UpdateTime / 5 end
 				else
-					EndUpdateTime = UpdateTime / (2)
-					if v:GetTable().IsAsleep then
-						EndUpdateTime = UpdateTime / 5 
-					end
+					EndUpdateTime = UpdateTime / 2
+					if v:GetTable().IsAsleep then EndUpdateTime = UpdateTime / 5 end
 				end
-				
+
 				--If End and Hunger need to be overidden
 				local overide = false
-				if v.DevMode or v.AFK then
-					overide = true
-				end
-				
+				if v.DevMode or v.AFK then overide = true end
 				--Endurance checks
 				if v:Alive() and CurTime() - v:GetTable().LastEndUpdate > EndUpdateTime then
 					local endur = v:GetTable().Endurance
-					
 					if v:GetTable().IsAsleep then
 						v:GetTable().Endurance = endur + 2
 					else
-						if not overide then  --Checks for overide
+						if not overide then --Checks for overide
 							v:GetTable().Endurance = endur - 1
 						end
 					end
-					
+
 					if v:GetTable().Endurance <= 0 then
 						v:ChatPrint("You've fallen unconcious due to fatigue!")
 						EnterSleep(v)
 					elseif v:GetTable().Endurance >= 100 then
-						if v:GetTable().IsAsleep then
-							ExitSleep(v)
-						end
+						if v:GetTable().IsAsleep then ExitSleep(v) end
 						v:GetTable().Endurance = 100
 					end
+
 					v:GetTable().LastEndUpdate = CurTime()
 				end
-				SendEndurance( v )
-				
+
+				SendEndurance(v)
 				--Hunger checks
-				local HunUpdateTime 
-				HunUpdateTime = 60 / (2 + ( runModifier / 2 ) )
-				if v:Alive() and CurTime() - v:GetTable().LastHunUpdate > HunUpdateTime and not (v:GetTable().IsAsleep) then
+				local HunUpdateTime
+				HunUpdateTime = 60 / (2 + (runModifier / 2))
+				if v:Alive() and CurTime() - v:GetTable().LastHunUpdate > HunUpdateTime and not v:GetTable().IsAsleep and v:Team() ~= TEAM_ZOMBIE then
 					local hunger = v:GetTable().Hunger
-					
 					if not overide then --Checks for overide
 						v:GetTable().Hunger = hunger - 1
-						
 						if v:GetTable().Hunger <= 0 then
 							v:GetTable().Hunger = 0
-							
-							v:SetHealth( v:Health() - 5 )
-							if v:Health() <= 0 then
-								timer.Create("kill_timer",  1, 1, function()
-										v:Kill()
-									end )
-							end
+							v:SetHealth(v:Health() - 5)
+							if v:Health() <= 0 then timer.Create("kill_timer", 1, 1, function() v:Kill() end) end
 						end
 					end
+
 					v:GetTable().LastHunUpdate = CurTime()
 				end
-				SendHunger( v )
+
+				SendHunger(v)
 			end
 		end
 	end
 end
-hook.Add("Think", "StatCheck", StatCheck)
 
+hook.Add("Think", "StatCheck", StatCheck)
 -----------------------------
 ---	Exit/Enter Sleep
 -----------------------------
-function EnterSleep ( ply )
+function EnterSleep(ply)
 	local IsSleeping = ply:GetTable().IsAsleep
 	local curEndurance = ply:GetTable().Endurance
-	
 	if ply.AFK then
 		ply:ChatPrint("You cannot sleep while AFK.")
 		return
 	end
-	
+
 	if IsSleeping == false and curEndurance < 100 then
-		if not ply:GetTable().SleepSound then
-			ply:GetTable().SleepSound = CreateSound(ply, "npc/ichthyosaur/water_breath.wav")
-		end
+		if not ply:GetTable().SleepSound then ply:GetTable().SleepSound = CreateSound(ply, "npc/ichthyosaur/water_breath.wav") end
 		ply:GetTable().IsAsleep = true
 		ply:GetTable().SleepGodCheck = true
 		ply:GetTable().SleepSound:PlayEx(0.10, 100)
-		
-		
 		if ply:InVehicle() then
 			ply:Freeze(true)
 		else
 			ply:Freeze(true)
 			ply:CreateRagdoll()
 			ply:SetRenderMode(1)
-			ply:SetColor( Color(0,0,0,0) )
+			ply:SetColor(Color(0, 0, 0, 0))
 			local ragdoll = ply:GetRagdollEntity()
 			ply.SleepRagdoll = ragdoll
 			ply.OldColGroup = ply:GetCollisionGroup()
 			ply:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
-			
-			if ply:HasWeapon( "weapon_simplekeys" ) then
-				ply:SelectWeapon( "weapon_simplekeys")
-			end
+			if ply:HasWeapon("weapon_simplekeys") then ply:SelectWeapon("weapon_simplekeys") end
 			-- ply:GetTable().WeaponsForSleep = {}
 			-- ply:GetTable().ClipsForSleep = {}
 			-- ply:GetTable().AmmoForSleep = {}
 			-- for k,v in pairs(ply:GetWeapons( )) do
-				-- ply:GetTable().WeaponsForSleep[k] = v:GetClass()
-				-- ply:GetTable().ClipsForSleep[k] = v:Clip1()
+			-- ply:GetTable().WeaponsForSleep[k] = v:GetClass()
+			-- ply:GetTable().ClipsForSleep[k] = v:Clip1()
 			-- end
-			
 			-- for i = 1, 22 do
-				-- ply:GetTable().AmmoForSleep[i] = ply:GetAmmoCount(PNRP.ConvertAmmoType(i))
+			-- ply:GetTable().AmmoForSleep[i] = ply:GetAmmoCount(PNRP.ConvertAmmoType(i))
 			-- end
-			
 			-- local ragdoll = ents.Create("prop_ragdoll")
 			-- ragdoll:SetPos(ply:GetPos())
 			-- ragdoll:SetAngles(Angle(0,ply:GetAngles().Yaw,0))
@@ -219,7 +173,6 @@ function EnterSleep ( ply )
 			-- ragdoll:SetVelocity(ply:GetVelocity())
 			-- --ragdoll.OwnerINT = player:EntIndex()
 			-- ragdoll:GetTable().PrevPos = ply:GetPos()
-			
 			-- ply:StripWeapons()
 			-- ply:Spectate(OBS_MODE_CHASE)
 			-- ply:SpectateEntity(ragdoll)
@@ -228,19 +181,19 @@ function EnterSleep ( ply )
 			-- ragdoll.Owner = player
 			-- ragdoll:SetNetworkedString("Owner", ply:Nick())
 		end
-		
+
 		net.Start("sleepeffects")
-			net.WriteBit(true)
+		net.WriteBit(true)
 		net.Send(ply)
 	end
 end
-util.AddNetworkString("sleepeffects")
 
-function EnterSleepCmd( ply )
+util.AddNetworkString("sleepeffects")
+function EnterSleepCmd(ply)
 	if not ply:IsOutside() then
 		if not ply:Crouching() then
 			if ply:GetTable().Endurance < 80 then
-				EnterSleep( ply )
+				EnterSleep(ply)
 			else
 				ply:ChatPrint("You aren't tired enough to sleep!")
 			end
@@ -251,24 +204,22 @@ function EnterSleepCmd( ply )
 		ply:ChatPrint("You must be inside to sleep!")
 	end
 end
-concommand.Add( "pnrp_sleep", EnterSleepCmd )
-PNRP.ChatConCmd( "/sleep", "pnrp_sleep" )
 
-function ExitSleep( ply )
+concommand.Add("pnrp_sleep", EnterSleepCmd)
+PNRP.ChatConCmd("/sleep", "pnrp_sleep")
+function ExitSleep(ply)
 	local IsSleeping = ply:GetTable().IsAsleep
 	local curEndurance = ply:GetTable().Endurance
 	--ply:GetTable().SleepSound
 	if IsSleeping == true then
 		ply:GetTable().IsAsleep = false
-		if ply:GetTable().SleepSound then
-			ply:GetTable().SleepSound:Stop()
-		end
+		if ply:GetTable().SleepSound then ply:GetTable().SleepSound:Stop() end
 		if ply:InVehicle() then
 			ply:Freeze(false)
 		else
 			ply:Freeze(false)
 			ply:SetRenderMode(0)
-			ply:SetColor( Color(255,255,255,255) )
+			ply:SetColor(Color(255, 255, 255, 255))
 			ply.SleepRagdoll:Remove()
 			ply:SetCollisionGroup(ply.OldColGroup)
 			-- local ragdoll = ply:GetTable().SleepRagdoll
@@ -276,26 +227,22 @@ function ExitSleep( ply )
 			-- local armor = ply:Armor()
 			-- local hunger = ply:GetTable().Hunger
 			-- local oldPos = false
-			
 			-- local entsearch = ents.FindInSphere( ragdoll:GetTable().PrevPos , 100 )
-			
 			-- for k,v in pairs(entsearch) do
-				-- if v:GetClass() == "prop_ragdoll" then
-					-- oldPos = true
-				-- end
+			-- if v:GetClass() == "prop_ragdoll" then
+			-- oldPos = true
 			-- end
-			
+			-- end
 			-- ply:Spawn()
 			-- ply:SetHealth(health)
 			-- ply:SetArmor(armor)
 			-- ply:GetTable().Hunger = hunger
 			-- ply:GetTable().SleepGodCheck = false
 			-- if oldPos then
-				-- ply:SetPos(ragdoll:GetTable().PrevPos)
+			-- ply:SetPos(ragdoll:GetTable().PrevPos)
 			-- else
-				-- ply:SetPos(ragdoll:GetPos())
+			-- ply:SetPos(ragdoll:GetPos())
 			-- end
-			
 			-- ply:SetAngles(Angle(0, ragdoll:GetPhysicsObjectNum(10):GetAngles().Yaw, 0))
 			-- ply:UnSpectate()
 			-- ply:StripWeapons()
@@ -303,53 +250,49 @@ function ExitSleep( ply )
 			-- --Runs this a little after spawn to help with lag issues
 			-- ply:ChatPrint("Picking up gear...")
 			-- timer.Create(ply:UniqueID()..tostring(os.time())..tostring(os.date()), 3, 1, function()  
-				-- if ply:GetTable().WeaponsForSleep then
-					-- for k,v in pairs(ply.WeaponsForSleep) do
-						-- local currentWep = ply:Give(v)
-						-- currentWep:SetClip1(ply:GetTable().ClipsForSleep[k])
-					-- end
-					-- ply:StripAmmo()
-					-- for i = 1, 22 do
-						-- ply:GiveAmmo(ply:GetTable().AmmoForSleep[i], PNRP.ConvertAmmoType(i), false)
-					-- end
-									
-					-- local cl_defaultweapon = ply:GetInfo( "cl_defaultweapon" )
-					-- if ( ply:HasWeapon( cl_defaultweapon )  ) then
-						-- ply:SelectWeapon( cl_defaultweapon ) 
-					-- end
-				
-				-- else
-					-- GAMEMODE:PlayerLoadout(player)
-				-- end 
-				
-				-- --Checks to make sure the player has the default weapons
-				-- for _,v in pairs(PNRP.DefWeps) do
-					-- if !ply:HasWeapon( v ) then
-						-- ply:Give( v )
-					-- end
-				-- end
-				
-				-- ply:ConCommand("pnrp_save")
-				-- ply:ChatPrint("Timer has run")
+			-- if ply:GetTable().WeaponsForSleep then
+			-- for k,v in pairs(ply.WeaponsForSleep) do
+			-- local currentWep = ply:Give(v)
+			-- currentWep:SetClip1(ply:GetTable().ClipsForSleep[k])
+			-- end
+			-- ply:StripAmmo()
+			-- for i = 1, 22 do
+			-- ply:GiveAmmo(ply:GetTable().AmmoForSleep[i], PNRP.ConvertAmmoType(i), false)
+			-- end
+			-- local cl_defaultweapon = ply:GetInfo( "cl_defaultweapon" )
+			-- if ( ply:HasWeapon( cl_defaultweapon )  ) then
+			-- ply:SelectWeapon( cl_defaultweapon ) 
+			-- end
+			-- else
+			-- GAMEMODE:PlayerLoadout(player)
+			-- end 
+			-- --Checks to make sure the player has the default weapons
+			-- for _,v in pairs(PNRP.DefWeps) do
+			-- if !ply:HasWeapon( v ) then
+			-- ply:Give( v )
+			-- end
+			-- end
+			-- ply:ConCommand("pnrp_save")
+			-- ply:ChatPrint("Timer has run")
 			-- end)
 		end
-		
+
 		net.Start("sleepeffects")
-			net.WriteBit(false)
+		net.WriteBit(false)
 		net.Send(ply)
 	end
 end
 
-function ExitSleepCmd( ply )
+function ExitSleepCmd(ply)
 	if ply:GetTable().IsAsleep then
-		ExitSleep( ply )
+		ExitSleep(ply)
 	else
 		ply:ChatPrint("You're not asleep!")
 	end
 end
-concommand.Add( "pnrp_wake", ExitSleepCmd )
-PNRP.ChatConCmd( "/wake", "pnrp_wake" )
 
+concommand.Add("pnrp_wake", ExitSleepCmd)
+PNRP.ChatConCmd("/wake", "pnrp_wake")
 --[[local function DamageSleepers(ent, inflictor, attacker, amount, dmginfo)
 	local ownerid = ent:GetTable().OwnerID
 	if ownerid and ownerid ~= 0 then
@@ -377,69 +320,63 @@ PNRP.ChatConCmd( "/wake", "pnrp_wake" )
 		end
 	end
 end
-hook.Add("EntityTakeDamage", "Sleepdamage", DamageSleepers)]]--
-
+hook.Add("EntityTakeDamage", "Sleepdamage", DamageSleepers)]]
+--
 ------------------------------
 -- Variable sends
 ------------------------------
-
-function SendEndurance( ply )
+function SendEndurance(ply)
 	net.Start("endurancemsg")
-		net.WriteDouble(ply:GetTable().Endurance)
+	net.WriteDouble(ply:GetTable().Endurance)
 	net.Send(ply)
 end
+
 util.AddNetworkString("endurancemsg")
-
-function SendHunger( ply )
+function SendHunger(ply)
 	net.Start("hungermsg")
-		net.WriteDouble(ply:GetTable().Hunger)
+	net.WriteDouble(ply:GetTable().Hunger)
 	net.Send(ply)
 end
+
 util.AddNetworkString("hungermsg")
-
-function PlayerMeta:GiveEndurance( amount )
+function PlayerMeta:GiveEndurance(amount)
 	self:GetTable().Endurance = self:GetTable().Endurance + amount
-	if self:GetTable().Endurance > 100 then 
-		self:GetTable().Endurance = 100
-	end
-	SendEndurance( self )
+	if self:GetTable().Endurance > 100 then self:GetTable().Endurance = 100 end
+	SendEndurance(self)
 end
 
-function PlayerMeta:TakeEndurance( amount )
+function PlayerMeta:TakeEndurance(amount)
 	self:GetTable().Endurance = self:GetTable().Endurance - amount
-	if self:GetTable().Endurance < 0 then
-		self:GetTable().Endurance = 0
-	end
-	SendEndurance( self )
+	if self:GetTable().Endurance < 0 then self:GetTable().Endurance = 0 end
+	SendEndurance(self)
 end
 
-function PlayerMeta:GiveHunger( amount )
+function PlayerMeta:GiveHunger(amount)
+	if self:Team() == TEAM_ZOMBIE then return end
 	self:GetTable().Hunger = self:GetTable().Hunger + amount
-	if self:GetTable().Hunger > 100 then
-		self:GetTable().Hunger = 100
-	end
-	SendHunger( self )
+	if self:GetTable().Hunger > 100 then self:GetTable().Hunger = 100 end
+	SendHunger(self)
 end
 
-function PlayerMeta:TakeHunger( amount )
+function PlayerMeta:TakeHunger(amount)
+	if self:Team() == TEAM_ZOMBIE then return end
 	self:GetTable().Hunger = self:GetTable().Hunger - amount
-	if self:GetTable().Hunger < 0 then
-		self:GetTable().Hunger = 0
-	end
-	SendHunger( self )
+	if self:GetTable().Hunger < 0 then self:GetTable().Hunger = 0 end
+	SendHunger(self)
 end
 
-function EndDebug( ply )
-	ply:ChatPrint("Your endurance is at "..tostring(ply:GetTable().Endurance)..".")
+function EndDebug(ply)
+	ply:ChatPrint("Your endurance is at " .. tostring(ply:GetTable().Endurance) .. ".")
 end
-concommand.Add( "pnrp_enddebug", EndDebug )
 
-function SendGas( ply, car, gas, tank )
+concommand.Add("pnrp_enddebug", EndDebug)
+function SendGas(ply, car, gas, tank)
 	net.Start("sndCarGas")
-		net.WriteEntity(ply)
-		net.WriteEntity(car)
-		net.WriteDouble(gas)
-		net.WriteDouble(tank)
+	net.WriteEntity(ply)
+	net.WriteEntity(car)
+	net.WriteDouble(gas)
+	net.WriteDouble(tank)
 	net.Send(ply)
 end
+
 util.AddNetworkString("sndCarGas")
