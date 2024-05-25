@@ -39,4 +39,4 @@ function ReceiveComDipl()
 
     LocalPlayer().ComDiplomacy = diplTbl
 end
-net.Receive("sndComDipl", ReceiveComDipl) m
+net.Receive("sndComDipl", ReceiveComDipl) 
