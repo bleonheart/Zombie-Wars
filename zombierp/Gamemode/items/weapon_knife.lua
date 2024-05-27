@@ -2,13 +2,13 @@ local ITEM = {}
 local WEAPON = {}
 
 ITEM.ID = "wep_knife"
-ITEM.Name = "Knife"
+ITEM.Name = "Flip Knife"
 ITEM.ClassSpawn = "All"
-ITEM.Scrap = 30
+ITEM.Scrap = 10
 ITEM.Small_Parts = 5
 ITEM.Chemicals = 5
 ITEM.Chance = 100
-ITEM.Info = "Wow! A crummy knife you built."
+ITEM.Info = "Has unique perks for melee combat."
 ITEM.Type = "weapon"
 ITEM.Remove = true
 ITEM.Energy = 15
@@ -16,7 +16,7 @@ ITEM.Ent = "tacrp_knife"
 ITEM.Model = "models/weapons/tacint/w_knife.mdl"
 ITEM.Script = ""
 ITEM.Weight = 2
-ITEM.ShopHide = false
+ITEM.ShopHide = true
 
 WEAPON.ID = ITEM.ID
 WEAPON.AmmoType = "none"

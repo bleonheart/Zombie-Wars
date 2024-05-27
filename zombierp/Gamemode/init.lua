@@ -767,11 +767,11 @@ function team_set_zombie(ply)
 	classChangeCost(ply, "Small_Parts")
 	classChangeCost(ply, "Chemicals")
 	ply:Spawn()
-	ply:SetModel("models/Zombie/Classic.mdl")
+	ply:SetModel("models/arty/scp5k/faction/infector/infector_pm.mdl")
 	ply:SetMaxHealth(200)
 	ply:SetHealth(200)
 	ply:StripWeapons()
-	ply:Give("weapon_crowbar")
+	ply:Give("swep_am_monster")
 end
 
 hook.Add("GetFallDamage", "NoFallZombies", function(ply, speed) if ply:Team() == TEAM_ZOMBIE then return 0 end end)

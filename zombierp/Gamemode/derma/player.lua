@@ -690,4 +690,4 @@ end
 function openProfileTimer()
 	local ply = LocalPlayer()
 	timer.Create(tostring(ply:UniqueID()), 0.5, 1, function() RunConsoleCommand("pnrp_playerprofile") end)
-end
+end 

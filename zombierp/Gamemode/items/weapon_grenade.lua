@@ -14,8 +14,8 @@ ITEM.Info = ""
 ITEM.Type = "weapon"
 ITEM.Remove = true
 ITEM.Energy = 1
-ITEM.Ent = "weapon_frag"
-ITEM.Model = "models/weapons/w_grenade.mdl"
+ITEM.Ent = "tacrp_nade_frag"
+ITEM.Model = "models/weapons/tacint/frag.mdl"
 ITEM.Script = ""
 ITEM.Weight = 1
 
@@ -27,7 +27,7 @@ function ITEM.ToolCheck( p )
 end
 
 function ITEM.Use( ply )
-	local WepName = "weapon_frag"
+	local WepName = "tacrp_nade_frag"
 	local gotWep = false
 	for k, v in pairs(ply:GetWeapons()) do
 		if v:GetClass() == WepName then gotWep = true end
@@ -43,7 +43,7 @@ function ITEM.Use( ply )
 end
 
 function ITEM.Create( ply, class, pos )
-	local ent = ents.Create("ent_weapon")
+	local ent = ents.Create("tacrp_nade_frag")
 	--ent:SetNetworkedInt("Ammo", self.Energy)
 	ent:SetNetVar("WepClass", ITEM.Ent)
 	ent:SetModel(ITEM.Model)

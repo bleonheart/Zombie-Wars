@@ -31,12 +31,12 @@ function ReceiveComDipl()
     local count = net.ReadUInt(32) 
     local diplTbl = {}
 
-    for i = 1, count do
         local key = net.ReadString() // key?
         local value = net.ReadDouble()  // value?
         diplTbl[key] = value
-    end
+    
 
     LocalPlayer().ComDiplomacy = diplTbl
 end
 net.Receive("sndComDipl", ReceiveComDipl) 
+	

@@ -177,7 +177,7 @@ function basicLoadWindow(ply)
 	local LoadinLabel = vgui.Create("DLabel", loadinLabel_frame)
 	LoadinLabel:SetPos(10, 0)
 	LoadinLabel:SetColor(Color(255, 255, 255, 255))
-	LoadinLabel:SetText("Welcome to PostNukeRP")
+	LoadinLabel:SetText("Welcome to Zombie Wars RP!")
 	LoadinLabel:SetFont("Trebuchet24")
 	LoadinLabel:SizeToContents()
 	--Inner Frame
@@ -193,7 +193,7 @@ function basicLoadWindow(ply)
 
 	Loadin_DPanel.Welcome = vgui.Create("DLabel", Loadin_DPanel)
 	Loadin_DPanel.Welcome:SetPos(10, 10)
-	Loadin_DPanel.Welcome:SetText("Welcome to PostNukeRP [PNRP]")
+	Loadin_DPanel.Welcome:SetText("This Gamemode is derived from Postnuke.")
 	Loadin_DPanel.Welcome:SetColor(Color(255, 255, 255, 255))
 	Loadin_DPanel.Welcome:SizeToContents()
 	Loadin_DPanel.Welcome:SetContentAlignment(5)
@@ -354,7 +354,7 @@ function GM.profilePicker(len)
 		Scroller:AddPanel(pnlPanel)
 	end
 
-	local selectedMdl = "models/player/kleiner.mdl"
+	local selectedMdl = "models/stalkertnb/banditboss1.mdl"
 	-- New Profile Section
 	local newProfileLabel = vgui.Create("DLabel", profilePicker_Frame)
 	newProfileLabel:SetPos(PList_DPanel:GetWide() + 15, 25)
@@ -362,7 +362,7 @@ function GM.profilePicker(len)
 	newProfileLabel:SetText("Create New Profile")
 	newProfileLabel:SizeToContents()
 	local mdlIcon = vgui.Create("SpawnIcon", profilePicker_Frame)
-	mdlIcon:SetModel("models/player/kleiner.mdl")
+	mdlIcon:SetModel("models/stalkertnb/banditboss1.mdl")
 	mdlIcon:SetPos(PList_DPanel:GetWide() + 15, 50)
 	mdlIcon:SetToolTip(nil)
 	local mdlListView = vgui.Create("DListView", profilePicker_Frame)
@@ -384,7 +384,7 @@ function GM.profilePicker(len)
 		if not table.IsEmpty(v.usergroup) then if not table.HasValue(v.usergroup, ply:GetUserGroup()) then allowed = false end end
 		if allowed then
 			mdlListView:AddLine(k, v)
-			if k == "kleiner" then mdlListView:SelectItem(mdlListView:GetLine(counter)) end
+			if k == "banditboss1" then mdlListView:SelectItem(mdlListView:GetLine(counter)) end
 		end
 
 		counter = counter + 1
@@ -455,4 +455,4 @@ function PNRP_motd()
 	setTxt:SetSize(motd_frame:GetWide() - 100, motd_frame:GetTall() - 100)
 end
 
-concommand.Add("motd", PNRP_motd)
+concommand.Add("motd", PNRP_motd) 

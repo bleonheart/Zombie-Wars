@@ -2,34 +2,33 @@ local ITEM = {}
 local WEAPON = {}
 
 
-ITEM.ID = "wep_ak-comp"
+ITEM.ID = "wep_precrifle"
 
-ITEM.Name = "AK-47"
+ITEM.Name = "Ruger Mini-14"
 ITEM.ClassSpawn = "Engineer"
 ITEM.Scrap = 50
 ITEM.Small_Parts = 100
-ITEM.Chemicals = 50
+ITEM.Chemicals = 30
 ITEM.Chance = 100
-ITEM.Info = "Uses Fusion Ammo"
+ITEM.Info = "Uses SMG Ammo."
 ITEM.Type = "weapon"
 ITEM.Remove = true
-ITEM.Energy = 30
-ITEM.Ent = "tacrp_ex_ak47"
-ITEM.Model = "models/weapons/tacint_extras/w_ak47.mdl"
+ITEM.Energy = 5
+ITEM.Ent = "tacrp_m1"
+ITEM.Model = "models/weapons/tacint/w_m14.mdl"
 ITEM.Script = ""
-ITEM.Weight = 5
+ITEM.Weight = 8
 ITEM.ShopHide = true
 
 WEAPON.ID = ITEM.ID
-WEAPON.AmmoType = "ar2"
-
+WEAPON.AmmoType = "smg1"
 
 function ITEM.ToolCheck( p )
 	return true
 end
 
 function ITEM.Use( ply )
-	local WepName = "tacrp_ex_ak47"
+	local WepName = "tacrp_m1"
 	local gotWep = false
 	for k, v in pairs(ply:GetWeapons()) do
 		if v:GetClass() == WepName then gotWep = true end
@@ -45,7 +44,7 @@ function ITEM.Use( ply )
 end
 
 function ITEM.Create( ply, class, pos )
-	local ent = ents.Create("tacrp_ex_ak47")
+	local ent = ents.Create("tacrp_m1")
 	--ent:SetNetworkedInt("Ammo", self.Energy)
 	ent:SetNetVar("WepClass", ITEM.Ent)
 	ent:SetModel(ITEM.Model)
