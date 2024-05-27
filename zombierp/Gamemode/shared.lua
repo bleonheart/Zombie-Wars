@@ -1,11 +1,11 @@
-GM.Name = "PostNukeRP" --Set the gamemode name
-GM.Author = "EldarStorm LostInTheWird MainError" --Set the author name
+GM.Name = "ZombieRP" --Set the gamemode name
+GM.Author = "EldarStorm & Too High & Bleonheart" --Set the author name
 GM.Email = "N/A" --Set the author email
-GM.Website = "http://postnukerp.com" --Set the author website
-GM.Version = "1.3.0"
+GM.Website = "https://www.zombiewarsrp.com/index/rules.html" --Set the author website
+GM.Version = "2.0"
 DeriveGamemode("sandbox")
 PNRP = {}
-gamemode.Register(PNRP, "postnukerp", "sandbox")
+gamemode.Register( PNRP, "zombierp", "sandbox" ) 
 PNRP_Path = "zombierp/"
 --PNRP_MOTDPath = "http://postnukerp.com/rules.php"
 PNRP_MOTDPath = "https://www.zombiewarsrp.com/index/rules.html"
