@@ -1,6 +1,0 @@
-ENT.Type 		= "anim"
-ENT.PrintName	= "Shaped Charge"
-ENT.Author		= "LostInTheWired"
-ENT.Contact		= "LostInTheWired@gmail.com"
-ENT.Purpose		= ""
-ENT.Instructions	= ""

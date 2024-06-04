@@ -16,7 +16,7 @@ function ENT:Use( activator, caller )
 	if ( activator:IsPlayer() ) then
 		if activator:KeyPressed( IN_USE ) then
 			if activator:Team() == TEAM_ENGINEER then
-				local itemList = {"wep_precrifle", "wep_saw"}
+				local itemList = {"wep_precrifle", "wep_saw", "wep_M82"}
 				 
 				net.Start("pnrp_OpenTShopInterface")
 					net.WriteEntity(activator)

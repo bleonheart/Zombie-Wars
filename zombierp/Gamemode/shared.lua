@@ -1,5 +1,5 @@
 GM.Name = "ZombieRP" --Set the gamemode name
-GM.Author = "EldarStorm & Too High & Bleonheart" --Set the author name
+GM.Author = "EldarStorm & Too High22" --Set the author name
 GM.Email = "N/A" --Set the author email
 GM.Website = "https://www.zombiewarsrp.com/index/rules.html" --Set the author website
 GM.Version = "2.0"

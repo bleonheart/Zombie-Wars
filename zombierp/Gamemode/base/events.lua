@@ -64,8 +64,8 @@ EVENT.vars = {}
 EVENT.vars["Active"] = true
 EVENT.vars["Chance"] = 25
 EVENT.vars["CheckTime"] = 1200
-EVENT.vars["LengthMin"] = 180
-EVENT.vars["LengthMax"] = 600
+EVENT.vars["LengthMin"] = 60
+EVENT.vars["LengthMax"] = 300
 EVENT.vars["TimeBetweenDamage"] = 5
 EVENT.vars["DamageAmount"] = 1
 

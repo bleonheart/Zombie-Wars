@@ -520,7 +520,18 @@ function buildPlyStoragePanels(storageENT, storageID, inventory_table,plyInvento
 		if storagemenu_body then storagemenu_body:Remove() end
 		
 		local stoItem = PNRP.Items[itemID]
-		
+		local storagemenu_frame = vgui.Create( "DFrame" )
+		storagemenu_frame:SetSize( w, h ) 
+		storagemenu_frame:SetPos( ScrW() / 2 - storagemenu_frame:GetWide() / 2, ScrH() / 2 - storagemenu_frame:GetTall() / 2 )
+		storagemenu_frame:SetTitle( "" )
+		storagemenu_frame:SetVisible( true )
+		storagemenu_frame:SetDraggable( false )
+		storagemenu_frame:ShowCloseButton( true )
+		storagemenu_frame:MakePopup()
+		storagemenu_frame.Paint = function() 
+			surface.SetDrawColor( 50, 50, 50, 0 )
+		end
+
 		storagemenu_body = vgui.Create( "DPanel", storagemenu_frame )
 			storagemenu_body:SetPos( 0, 0 ) -- Set the position of the panel
 			storagemenu_body:SetSize( storagemenu_frame:GetWide()-50, storagemenu_frame:GetTall())

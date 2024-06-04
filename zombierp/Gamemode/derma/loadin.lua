@@ -455,4 +455,4 @@ function PNRP_motd()
 	setTxt:SetSize(motd_frame:GetWide() - 100, motd_frame:GetTall() - 100)
 end
 
-concommand.Add("motd", PNRP_motd) 
+concommand.Add("motd", PNRP_motd)
